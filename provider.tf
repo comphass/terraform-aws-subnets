@@ -15,15 +15,15 @@ terraform {
 
 # Configuring the AWS Provider in us-east-1 region
 provider "aws" {
-  region = lookup(var.aws_region, local.env)
+  region  = lookup(var.aws_region, local.env)
   profile = "comphass-core-terraform"
 
   default_tags {
     tags = {
-      project = "Terraform AWS Subnets"
-      createdat="2023-01-31"
-      managedby="terraform"
-      owner="eduardo hass"
+      project   = "Terraform AWS Subnets"
+      createdat = "2023-01-31"
+      managedby = "terraform"
+      owner     = "eduardo hass"
     }
   }
 }
