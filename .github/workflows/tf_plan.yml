@@ -29,7 +29,7 @@ jobs:
       - name: Terraform set workflow
         id: workflow
         run: | 
-          terraform worspace new lab
+          terraform workspace new lab
           terraform workspace select lab
 
       - name: Terraform Initialization
@@ -88,7 +88,7 @@ jobs:
       - name: Terraform set workflow
         id: workflow
         run: | 
-          terraform worspace new lab
+          terraform workspace new lab
           terraform workspace select lab
 
       - name: Terraform Init
