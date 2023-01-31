@@ -26,15 +26,15 @@ jobs:
         with:
           terraform_version: 1.3.7
 
+      - name: Terraform Initialization
+        id: init
+        run: terraform init -backend=true -backend-config="config/lab/backend.hcl"
+      
       - name: Terraform set workflow
         id: workflow
         run: | 
           terraform workspace new lab
           terraform workspace select lab
-
-      - name: Terraform Initialization
-        id: init
-        run: terraform init -backend=true -backend-config="config/lab/backend.hcl"
 
       - name: Terraform Validate
         id: validate
@@ -85,16 +85,16 @@ jobs:
         with:
           terraform_version: 1.3.7
 
-      - name: Terraform set workflow
-        id: workflow
-        run: | 
-          terraform workspace new lab
-          terraform workspace select lab
-
       - name: Terraform Init
         id: init
         run: terraform init -backend=true -backend-config="config/dev/backend.hcl"
 
+      - name: Terraform set workflow
+        id: workflow
+        run: | 
+          terraform workspace new dev
+          terraform workspace select dev
+          
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
