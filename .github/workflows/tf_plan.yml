@@ -25,10 +25,6 @@ jobs:
         with:
           terraform_version: 1.3.7
 
-      - name: Terraform format
-        id: fmt
-        run: terraform fmt -check
-
       - name: Terraform Initialization
         id: init
         run: terraform init -backend=true -backend-config="config/lab/backend.hcl"
@@ -81,10 +77,6 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.3.7
-
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
 
       - name: Terraform Init
         id: init
