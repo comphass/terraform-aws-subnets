@@ -1,9 +1,12 @@
 name: Destroy terraform resources on given environment
 
 on:
+  push:
+    branches:
+      - "destroy_workflow"
   workflow_dispatch:
     inputs:
-      env:
+      environment:
         description: 'Environment with resources to be destroyed'
         required: true
         default: 'lab'
@@ -32,14 +35,14 @@ jobs:
 
       - name: Terraform Init lab
         id: init
-        run: terraform init -backend=true -backend-config="config/${{ github.event.inputs.env }}/backend.hcl"
+        run: terraform init -backend=true -backend-config="config/${{ github.event.inputs.environment }}/backend.hcl"
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve -var-file="config/${{ github.event.inputs.env }}/terraform.tfvars"
+        run: terraform destroy -auto-approve -var-file="config/${{ github.event.inputs.environment }}/terraform.tfvars"
       
       
 
