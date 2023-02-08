@@ -1,0 +1,46 @@
+name: Destroy terraform resources on given environment
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment with resources to be destroyed'
+        required: true
+        default: 'lab'
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  destroy:
+    name: 'terraform destroy'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.3.7
+
+      - name: Terraform Init lab
+        id: init
+        run: terraform init -backend=true -backend-config="config/${{ github.event.inputs.env }}/backend.hcl"
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -var-file="config/${{ github.event.inputs.env }}/terraform.tfvars"
+      
+      
+
+  
