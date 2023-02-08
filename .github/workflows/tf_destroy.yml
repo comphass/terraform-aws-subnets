@@ -1,7 +1,6 @@
 name: Destroy terraform resources on given environment
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       env:
